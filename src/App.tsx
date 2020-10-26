@@ -3,6 +3,7 @@ import {
   Header,
   Content,
   Heading,
+  ButtonGroup,
   Button,
   Text,
   Divider,
@@ -27,7 +28,7 @@ const defaultData: Data = {
 }
 
 const App = () => {
-  const [id, setId] = useState<number>(1)
+  const [id, setId] = useState<number>(120)
   const [data, setData] = useState<Data>(defaultData)
 
   useEffect(() => {
@@ -59,9 +60,14 @@ const App = () => {
         <Column label="Japanese" text={data.Japanese} />
         <Column label="English example" text={data.EnglishExample} />
         <Column label="Japanese example" text={data.JapaneseExample} />
-        <Button variant="primary" onPress={() => setId(id + 1)}>
-          {data.id}
-        </Button>
+        <ButtonGroup marginTop="24px">
+          <Button variant="secondary" onPress={() => console.log('Play')}>
+            Play
+          </Button>
+          <Button variant="cta" onPress={() => setId(id + 1)}>
+            Next
+          </Button>
+        </ButtonGroup>
       </Content>
     </>
   )
