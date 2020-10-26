@@ -9,7 +9,6 @@ const App = () => {
   const [data, setData] = useState(defaultData)
 
   useEffect(() => {
-    console.log('hi')
     fetch()
   }, [id])
 
@@ -30,7 +29,7 @@ const App = () => {
 
   return (
     <>
-      <Header marginX="32px" marginY="16px" width="100%">
+      <Header marginX="32px" marginY="16px">
         <Heading level={1}>Wordbook</Heading>
       </Header>
       <Content margin="32px">
