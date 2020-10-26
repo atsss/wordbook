@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Header, Content, Heading, Button, Text } from '@adobe/react-spectrum'
+import {
+  Header,
+  Content,
+  Heading,
+  Button,
+  Text,
+  Divider,
+  View,
+} from '@adobe/react-spectrum'
 import axios from 'axios'
 
 interface Data {
@@ -7,7 +15,7 @@ interface Data {
   Japanese: string
   English: string
   JapaneseExample: string
-  ExglishExample: string
+  EnglishExample: string
 }
 
 const defaultData: Data = {
@@ -15,7 +23,7 @@ const defaultData: Data = {
   Japanese: '',
   English: '',
   JapaneseExample: '',
-  ExglishExample: '',
+  EnglishExample: '',
 }
 
 const App = () => {
@@ -47,7 +55,10 @@ const App = () => {
         <Heading level={1}>Wordbook</Heading>
       </Header>
       <Content margin="32px">
-        <Text>Paste</Text>
+        <Column label="English" text={data.English} />
+        <Column label="Japanese" text={data.Japanese} />
+        <Column label="English example" text={data.EnglishExample} />
+        <Column label="Japanese example" text={data.JapaneseExample} />
         <Button variant="primary" onPress={() => setId(id + 1)}>
           {data.id}
         </Button>
@@ -55,5 +66,21 @@ const App = () => {
     </>
   )
 }
+
+interface Props {
+  label: string
+  text: string
+}
+const Column: React.FC<Props> = ({ label, text }) => (
+  <>
+    <View marginTop="16px">
+      <Text>{label}</Text>
+    </View>
+    <View marginTop="8px">
+      <Text>{text}</Text>
+    </View>
+    <Divider size="S" />
+  </>
+)
 
 export default App
