@@ -1,12 +1,26 @@
 import React, { useState, useEffect } from 'react'
-import { Header, Content, Heading, Button } from '@adobe/react-spectrum'
+import { Header, Content, Heading, Button, Text } from '@adobe/react-spectrum'
 import axios from 'axios'
 
-const defaultData = { id: 0 }
+interface Data {
+  id: number
+  Japanese: string
+  English: string
+  JapaneseExample: string
+  ExglishExample: string
+}
+
+const defaultData: Data = {
+  id: 0,
+  Japanese: '',
+  English: '',
+  JapaneseExample: '',
+  ExglishExample: '',
+}
 
 const App = () => {
-  const [id, setId] = useState(1)
-  const [data, setData] = useState(defaultData)
+  const [id, setId] = useState<number>(1)
+  const [data, setData] = useState<Data>(defaultData)
 
   useEffect(() => {
     fetch()
@@ -33,6 +47,7 @@ const App = () => {
         <Heading level={1}>Wordbook</Heading>
       </Header>
       <Content margin="32px">
+        <Text>Paste</Text>
         <Button variant="primary" onPress={() => setId(id + 1)}>
           {data.id}
         </Button>
