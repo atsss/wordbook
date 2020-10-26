@@ -27,8 +27,10 @@ const defaultData: Data = {
   EnglishExample: '',
 }
 
+const storagedId = parseInt(localStorage.getItem('id') || '1', 10)
+
 const App = () => {
-  const [id, setId] = useState<number>(120)
+  const [id, setId] = useState<number>(storagedId)
   const [data, setData] = useState<Data>(defaultData)
 
   useEffect(() => {
@@ -41,8 +43,10 @@ const App = () => {
         `https://api.airtable.com/v0/appSWyyYTT8awiXtc/Database?api_key=keyBlQF1YY3ZMiQgL&filterByFormula={id}=${id}`
       )
       .then(function (response) {
-        console.log(response.data.records[0].fields)
-        setData(response.data.records[0].fields)
+        const fetchedData = response.data.records[0].fields
+        console.log(fetchedData)
+        localStorage.setItem('id', fetchedData.id)
+        setData(fetchedData)
       })
       .catch(function (error) {
         console.log(error)
