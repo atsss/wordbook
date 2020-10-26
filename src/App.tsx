@@ -88,11 +88,13 @@ const App = () => {
         <Column label="Japanese" text={data.Japanese} />
         <Column label="English example" text={data.EnglishExample} />
         <Column label="Japanese example" text={data.JapaneseExample} />
-        <View marginTop="24px">
-          <audio src={`data:audio/mp3;base64,${audio}`} controls>
-            Your browser does not support the audio element.
-          </audio>
-        </View>
+        {audio && (
+          <View marginTop="24px">
+            <audio src={`data:audio/mp3;base64,${audio}`} controls>
+              Your browser does not support the audio element.
+            </audio>
+          </View>
+        )}
         <ButtonGroup marginTop="24px">
           <Button variant="secondary" onPress={getAudio}>
             Get Audio
