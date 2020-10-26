@@ -32,9 +32,11 @@ const storagedId = parseInt(localStorage.getItem('id') || '1', 10)
 const App = () => {
   const [id, setId] = useState<number>(storagedId)
   const [data, setData] = useState<Data>(defaultData)
+  const [audio, setAudio] = useState<string | undefined>(undefined)
 
   useEffect(() => {
     fetch()
+    setAudio(undefined)
   }, [id])
 
   const fetch = () => {
@@ -54,6 +56,28 @@ const App = () => {
       })
   }
 
+  const getAudio = () => {
+    const options = {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      data: {
+        audioConfig: { audioEncoding: 'LINEAR16', pitch: 0, speakingRate: 1 },
+        input: { text: data.EnglishExample },
+        voice: { languageCode: 'en-US', name: 'en-US-Wavenet-D' },
+      },
+      url:
+        'https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=AIzaSyArn08Ud4m-JuxAfp5vtReZ4BEUzZsvrTs',
+    }
+    axios(options)
+      .then(function (response) {
+        console.log(response)
+        setAudio(response.data.audioContent)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+
   return (
     <>
       <Header marginX="32px" marginY="16px">
@@ -64,9 +88,14 @@ const App = () => {
         <Column label="Japanese" text={data.Japanese} />
         <Column label="English example" text={data.EnglishExample} />
         <Column label="Japanese example" text={data.JapaneseExample} />
+        <View marginTop="24px">
+          <audio src={`data:audio/mp3;base64,${audio}`} controls>
+            Your browser does not support the audio element.
+          </audio>
+        </View>
         <ButtonGroup marginTop="24px">
-          <Button variant="secondary" onPress={() => console.log('Play')}>
-            Play
+          <Button variant="secondary" onPress={getAudio}>
+            Get Audio
           </Button>
           <Button variant="cta" onPress={() => setId(id + 1)}>
             Next
