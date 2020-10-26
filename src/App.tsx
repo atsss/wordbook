@@ -9,7 +9,7 @@ import {
   Divider,
   View,
 } from '@adobe/react-spectrum'
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 
 interface Data {
   id: number
@@ -57,7 +57,7 @@ const App = () => {
   }
 
   const getAudio = () => {
-    const options = {
+    const options: AxiosRequestConfig = {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       data: {
